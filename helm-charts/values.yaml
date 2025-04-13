@@ -1,7 +1,5 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-project_id: meghdo-4567
-region: europe-west1
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
@@ -27,8 +25,7 @@ serviceAccount:
   automount: true
   # Annotations to add to the service account
   annotations: 
-    iam.gke.io/gcp-service-account: svc-cloudsql@meghdo-4567.iam.gserviceaccount.com
-
+      eks.amazonaws.com/role-arn: arn:aws:iam::354918396806:role/rds-access-role
 # This is for setting Kubernetes Annotations to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ 
 podAnnotations: {}
@@ -115,13 +112,14 @@ virtualservice:
   prefix: drizzlego
 
 
-sqlproxy:
+database:
   enabled: true
   repository: gcr.io/cloud-sql-connectors/cloud-sql-proxy
   tag: latest
   pullPolicy: IfNotPresent
-  db_name: "meghdo-database"
-  db_user: "db_user"
+  db_name: "meghdo_database"
+  db_user: "dbuser"
+  db_host: "meghdo-instance.ca9m0486s1c6.us-east-1.rds.amazonaws.com"
   db_instance: "meghdo-instance"
   db_port: 5432
   resources:

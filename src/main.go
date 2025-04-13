@@ -40,6 +40,7 @@ func main() {
     isReady.Store(false)
 
     // Get database credentials from environment variables
+    dbHost := os.Getenv("DB_HOST")
     dbUser := os.Getenv("DB_USER")
     dbPassword := os.Getenv("DB_PASSWORD")
     dbName := os.Getenv("DB_NAME")
@@ -53,12 +54,12 @@ func main() {
 
     // Construct connection string
     connStr := fmt.Sprintf(
-        "host=127.0.0.1 port=%s user=%s password=%s dbname=%s sslmode=disable",
-         dbPort, dbUser, dbPassword, dbName,
+        "host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+         dbHost, dbPort, dbUser, dbPassword, dbName,
     )
 
     log.Info().
-        Str("host", "127.0.0.1").
+        Str("host", dbHost).
         Str("port", dbPort).
         Str("db_name", dbName).
         Msg("Attempting database connection")
