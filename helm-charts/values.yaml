@@ -114,8 +114,6 @@ virtualservice:
 
 database:
   enabled: true
-  repository: gcr.io/cloud-sql-connectors/cloud-sql-proxy
-  tag: latest
   pullPolicy: IfNotPresent
   db_name: "meghdo_database"
   db_user: "dbuser"
